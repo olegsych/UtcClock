@@ -20,7 +20,7 @@ build_script:
 - cmd: dotnet build .\Chronology.sln -nologo -logger:"C:\Program Files\AppVeyor\BuildAgent\dotnetcore\Appveyor.MSBuildLogger.dll"
 
 test_script:
-- cmd: dotnet test .\test\Tests.csproj
+- cmd: dotnet test .\tests\Tests.csproj
 
 after_test:
 - cmd: dotnet pack .\src\Chronology.csproj --configuration Release --include-symbols
