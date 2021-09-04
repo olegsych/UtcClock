@@ -4,7 +4,7 @@ using Fuzzy;
 using Inspector;
 using Xunit;
 
-namespace UtcClock
+namespace Chronology
 {
     public abstract class UtcDateTimeTest: TestFixture
     {

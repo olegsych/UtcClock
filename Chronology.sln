@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		modules\csharp.common\StrongName.snk = modules\csharp.common\StrongName.snk
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtcClock", "src\UtcClock.csproj", "{629564A2-0188-461D-8415-5D9A6B30144C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chronology", "src\Chronology.csproj", "{629564A2-0188-461D-8415-5D9A6B30144C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\Tests.csproj", "{9E351E81-4BD9-44FE-95D0-42ABD4AE68B9}"
 EndProject

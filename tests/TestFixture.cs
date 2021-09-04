@@ -1,6 +1,6 @@
 using Fuzzy;
 
-namespace UtcClock
+namespace Chronology
 {
     public abstract class TestFixture
     {

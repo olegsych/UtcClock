@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UtcClock
+namespace Chronology
 {
     public struct UtcDateTime: IEquatable<UtcDateTime>, IComparable<UtcDateTime>
     {
@@ -15,12 +15,7 @@ namespace UtcClock
         }
 
         public UtcDateTime Add(TimeSpan value) => this + value;
-
-        public int CompareTo(UtcDateTime other) =>
-            value < other.value ? -1 :
-            value > other.value ? 1 :
-            0;
-
+        public int CompareTo(UtcDateTime other) => value < other.value ? -1 : value > other.value ? 1 : 0;
         public override bool Equals(object obj) => obj is UtcDateTime other ? Equals(other) : false;
         public bool Equals(UtcDateTime other) => value.Equals(other.value);
         public override int GetHashCode() => value.GetHashCode();
@@ -32,7 +27,6 @@ namespace UtcClock
 
         public static implicit operator DateTime(UtcDateTime utc) => utc.value;
         public static implicit operator DateTimeOffset(UtcDateTime utc) => utc.value;
-
         public static bool operator ==(UtcDateTime left, UtcDateTime right) => left.value == right.value;
         public static bool operator !=(UtcDateTime left, UtcDateTime right) => left.value != right.value;
         public static UtcDateTime operator +(UtcDateTime left, TimeSpan right) => new UtcDateTime(left.value + right);
