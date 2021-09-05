@@ -16,6 +16,8 @@ namespace Chronology
             this.value = value.ToUniversalTime();
         }
 
+        public long Ticks => value.Ticks;
+
         public UtcDateTime Add(TimeSpan value) => this + value;
         public int CompareTo(UtcDateTime other) => value < other.value ? -1 : value > other.value ? 1 : 0;
         public override bool Equals(object obj) => obj is UtcDateTime other ? Equals(other) : false;
