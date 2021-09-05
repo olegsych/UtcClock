@@ -10,8 +10,22 @@ namespace Chronology
         public class YourClass
         {
             readonly IClock clock;
+
             public YourClass(IClock clock) => this.clock = clock;
-            public override string ToString() => $"Current time is {clock.Time}";
+
+            public override string ToString() {
+                UtcDateTime now = clock.Time;
+                return $"Current time is {now}";
+            }
+        }
+
+        public class YourApplication
+        {
+            public static void Main() {
+                var clock = new Clock();
+                var work = new YourClass(clock);
+                Console.WriteLine(work);
+            }
         }
 
         [Fact]
@@ -25,6 +39,14 @@ namespace Chronology
 
             string expected = $"Current time is {time:o}";
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ImplicitConversions() {
+            IClock clock = new Clock();
+            UtcDateTime utcDateTime = clock.Time;
+            DateTime dateTime = utcDateTime;
+            DateTimeOffset dateTimeOffset = utcDateTime;
         }
     }
 }
