@@ -10,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		modules\csharp.common\.gitignore = modules\csharp.common\.gitignore
 		.gitmodules = .gitmodules
 		appveyor.yml = appveyor.yml
+		CONTRIBUTING.md = CONTRIBUTING.md
 		modules\csharp.common\directory.build.props = modules\csharp.common\directory.build.props
+		LICENSE = LICENSE
 		README.md = README.md
 		modules\csharp.common\StrongName.snk = modules\csharp.common\StrongName.snk
 	EndProjectSection
