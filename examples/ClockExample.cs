@@ -19,9 +19,9 @@ namespace Chronology
             }
         }
 
-        public class YourApplication
+        public static class YourApplication
         {
-            public static void Main() {
+            public static void main() {
                 var clock = new Clock();
                 var work = new YourClass(clock);
                 Console.WriteLine(work);
