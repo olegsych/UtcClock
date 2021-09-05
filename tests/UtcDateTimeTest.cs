@@ -10,20 +10,36 @@ namespace Chronology
     {
         readonly UtcDateTime sut = new UtcDateTime(fuzzy.DateTimeOffset());
 
-        public sealed class Constructor: UtcDateTimeTest
+        public sealed class TicksConstructor: UtcDateTimeTest
+        {
+            [Fact]
+            public void CreatesValueFromLong() {
+                DateTime input = fuzzy.DateTime(DateTimeKind.Utc);
+                var sut = new UtcDateTime(input.Ticks);
+                Assert.Equal(input, sut.Field<DateTime>());
+                Assert.Equal(DateTimeKind.Utc, sut.Field<DateTime>().Value.Kind);
+            }
+        }
+
+        public sealed class DateTimeOffsetConstructor: UtcDateTimeTest
         {
             [Fact]
             public void CreatesValueFromDateTimeOffset() {
                 DateTimeOffset input = fuzzy.DateTimeOffset();
                 var sut = new UtcDateTime(input);
                 Assert.Equal(input.UtcDateTime, sut.Field<DateTime>());
+                Assert.Equal(DateTimeKind.Utc, sut.Field<DateTime>().Value.Kind);
             }
+        }
 
+        public sealed class DateTimeConstructor: UtcDateTimeTest
+        {
             [Fact]
             public void CreatesValueFromDateTimeWithUtcKind() {
                 DateTime input = fuzzy.DateTime(DateTimeKind.Utc);
                 var sut = new UtcDateTime(input);
                 Assert.Equal(input, sut.Field<DateTime>());
+                Assert.Equal(DateTimeKind.Utc, sut.Field<DateTime>().Value.Kind);
             }
 
             [Theory, InlineData(DateTimeKind.Local), InlineData(DateTimeKind.Unspecified)]
@@ -35,19 +51,37 @@ namespace Chronology
             }
         }
 
-        public sealed class ImplicitConversionOperator: UtcDateTimeTest
+        public sealed class DateTimeConversionOperator: UtcDateTimeTest
         {
             [Fact]
-            public void ConvertsToDateTime() {
+            public void ConvertsInitializedValue() {
                 DateTime actual = sut;
                 Assert.Equal(sut.Field<DateTime>(), actual);
+                Assert.Equal(DateTimeKind.Utc, actual.Kind);
             }
 
             [Fact]
-            public void ConvertsToDateTimeOffset() {
+            public void ConvertsUninitializedValue() {
+                DateTime actual = default(UtcDateTime);
+                Assert.Equal(0, actual.Ticks);
+                Assert.Equal(DateTimeKind.Utc, actual.Kind);
+            }
+        }
+
+        public sealed class DateTimeOffsetComversionOperator: UtcDateTimeTest
+        {
+            [Fact]
+            public void ConvertsInitializedValue() {
                 DateTimeOffset actual = sut;
-                Assert.Equal(TimeSpan.Zero, actual.Offset);
                 Assert.Equal(sut.Field<DateTime>(), actual.DateTime);
+                Assert.Equal(TimeSpan.Zero, actual.Offset);
+            }
+
+            [Fact]
+            public void ConvertsUninitializedValue() {
+                DateTimeOffset actual = default(UtcDateTime);
+                Assert.Equal(0, actual.Ticks);
+                Assert.Equal(TimeSpan.Zero, actual.Offset);
             }
         }
 
@@ -61,8 +95,16 @@ namespace Chronology
             }
 
             [Fact]
+            public void ReturnsTrueWhenIninitializedIsEqualToDefault() {
+                var initialized = new UtcDateTime(0);
+                var uninitialized = default(UtcDateTime);
+                Assert.True(initialized == uninitialized);
+                Assert.True(uninitialized == initialized);
+            }
+
+            [Fact]
             public void ReturnsFalseWhenValuesAreDifferent() {
-                UtcDateTime other = new UtcDateTime(fuzzy.DateTimeOffset());
+                UtcDateTime other = new UtcDateTime(fuzzy.DateTime(DateTimeKind.Utc));
                 Assert.False(sut == other);
                 Assert.False(other == sut);
             }
@@ -96,6 +138,14 @@ namespace Chronology
                 UtcDateTime other = sut;
                 Assert.False(sut != other);
                 Assert.False(other != sut);
+            }
+
+            [Fact]
+            public void ReturnsFalseWhenOneInitializedValueIsEqualToDefault() {
+                var initialized = new UtcDateTime(0);
+                var uninitialized = default(UtcDateTime);
+                Assert.False(initialized != uninitialized);
+                Assert.False(uninitialized != initialized);
             }
 
             [Fact]
@@ -250,7 +300,6 @@ namespace Chronology
             }
         }
 
-
         public class LessThanOperator: UtcDateTimeTest
         {
             [Fact]
@@ -340,18 +389,32 @@ namespace Chronology
         public class ToDateTime: UtcDateTimeTest
         {
             [Fact]
-            public void ReturnsDateTimeValue() {
+            public void ConvertsInitializedValue() {
                 DateTime expected = sut.Field<DateTime>();
                 Assert.Equal(expected, sut.ToDateTime());
+            }
+
+            [Fact]
+            public void ConvertsUninitializedValue() {
+                DateTime actual = default(UtcDateTime).ToDateTime();
+                Assert.Equal(0, actual.Ticks);
+                Assert.Equal(DateTimeKind.Utc, actual.Kind);
             }
         }
 
         public class ToDateTimeOffset: UtcDateTimeTest
         {
             [Fact]
-            public void ReturnsDateTimeOffsetValue() {
+            public void ConvertsInitializedValue() {
                 var expected = new DateTimeOffset(sut.Field<DateTime>());
                 Assert.Equal(expected, sut.ToDateTimeOffset());
+            }
+
+            [Fact]
+            public void ConvertsUninitializedValue() {
+                DateTimeOffset actual = default(UtcDateTime).ToDateTimeOffset();
+                Assert.Equal(0, actual.Ticks);
+                Assert.Equal(TimeSpan.Zero, actual.Offset);
             }
         }
 
@@ -361,6 +424,13 @@ namespace Chronology
             public void ReturnsValueInRoundTripFormat() {
                 string expected = sut.Field<DateTime>().Value.ToString("o");
                 string? actual = sut.ToString();
+                Assert.Equal(expected, actual);
+            }
+
+            [Fact]
+            public void ConvertsUninitializedValueToUtc() {
+                string expected = new DateTime(0, DateTimeKind.Utc).ToString("o");
+                string? actual = default(UtcDateTime).ToString();
                 Assert.Equal(expected, actual);
             }
         }
