@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Fuzzy;
-using Inspector;
 using Xunit;
 
 namespace Chronology
 {
     public abstract class UtcDateTimeTest: TestFixture
     {
-        readonly UtcDateTime sut = new UtcDateTime(fuzzy.DateTimeOffset());
+        readonly UtcDateTime sut;
+
+        readonly DateTime inputDateTime = fuzzy.DateTime(DateTimeKind.Utc);
+
+        protected UtcDateTimeTest() => sut = new UtcDateTime(inputDateTime);
 
         public sealed class TicksConstructor: UtcDateTimeTest
         {
@@ -16,8 +19,7 @@ namespace Chronology
             public void CreatesValueFromLong() {
                 DateTime input = fuzzy.DateTime(DateTimeKind.Utc);
                 var sut = new UtcDateTime(input.Ticks);
-                Assert.Equal(input, sut.Field<DateTime>());
-                Assert.Equal(DateTimeKind.Utc, sut.Field<DateTime>().Value.Kind);
+                Assert.Equal(input.Ticks, sut.Ticks);
             }
         }
 
@@ -27,8 +29,7 @@ namespace Chronology
             public void CreatesValueFromDateTimeOffset() {
                 DateTimeOffset input = fuzzy.DateTimeOffset();
                 var sut = new UtcDateTime(input);
-                Assert.Equal(input.UtcDateTime, sut.Field<DateTime>());
-                Assert.Equal(DateTimeKind.Utc, sut.Field<DateTime>().Value.Kind);
+                Assert.Equal(input.UtcDateTime.Ticks, sut.Ticks);
             }
         }
 
@@ -38,8 +39,7 @@ namespace Chronology
             public void CreatesValueFromDateTimeWithUtcKind() {
                 DateTime input = fuzzy.DateTime(DateTimeKind.Utc);
                 var sut = new UtcDateTime(input);
-                Assert.Equal(input, sut.Field<DateTime>());
-                Assert.Equal(DateTimeKind.Utc, sut.Field<DateTime>().Value.Kind);
+                Assert.Equal(input.Ticks, sut.Ticks);
             }
 
             [Theory, InlineData(DateTimeKind.Local), InlineData(DateTimeKind.Unspecified)]
@@ -56,7 +56,7 @@ namespace Chronology
             [Fact]
             public void ConvertsInitializedValue() {
                 DateTime actual = sut;
-                Assert.Equal(sut.Field<DateTime>(), actual);
+                Assert.Equal(sut.Ticks, actual.Ticks);
                 Assert.Equal(DateTimeKind.Utc, actual.Kind);
             }
 
@@ -73,7 +73,7 @@ namespace Chronology
             [Fact]
             public void ConvertsInitializedValue() {
                 DateTimeOffset actual = sut;
-                Assert.Equal(sut.Field<DateTime>(), actual.DateTime);
+                Assert.Equal(sut.Ticks, actual.Ticks);
                 Assert.Equal(TimeSpan.Zero, actual.Offset);
             }
 
@@ -168,9 +168,9 @@ namespace Chronology
             [Fact]
             public void AddsTimeSpanToUtcDateTime() {
                 TimeSpan timeSpan = fuzzy.TimeSpan().Between(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(20));
-                DateTime expected = sut.Field<DateTime>().Value + timeSpan;
+                DateTime expected = inputDateTime + timeSpan;
                 UtcDateTime actual = sut.Add(timeSpan);
-                Assert.Equal(expected, actual.Field<DateTime>());
+                Assert.Equal(expected.Ticks, actual.Ticks);
             }
         }
 
@@ -179,9 +179,9 @@ namespace Chronology
             [Fact]
             public void AddsTimeSpanToUtcDateTime() {
                 TimeSpan timeSpan = fuzzy.TimeSpan().Between(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(20));
-                DateTime expected = sut.Field<DateTime>().Value + timeSpan;
+                DateTime expected = inputDateTime + timeSpan;
                 UtcDateTime actual = sut + timeSpan;
-                Assert.Equal(expected, actual.Field<DateTime>());
+                Assert.Equal(expected.Ticks, actual.Ticks);
             }
         }
 
@@ -246,10 +246,8 @@ namespace Chronology
         public new class GetHashCode: UtcDateTimeTest
         {
             [Fact]
-            public void ReturnsHashCodeOfDateTimeValue() {
-                DateTime expected = sut.Field<DateTime>();
-                Assert.Equal(expected.GetHashCode(), sut.GetHashCode());
-            }
+            public void ReturnsHashCodeOfDateTimeValue() =>
+                Assert.Equal(inputDateTime.GetHashCode(), sut.GetHashCode());
         }
 
         public class GreaterThanOperator: UtcDateTimeTest
@@ -353,15 +351,15 @@ namespace Chronology
             [Fact]
             public void SubtractsTimeSpanFromUtcDateTime() {
                 TimeSpan timeSpan = fuzzy.TimeSpan().Between(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(20));
-                DateTime expected = sut.Field<DateTime>().Value - timeSpan;
+                DateTime expected = inputDateTime - timeSpan;
                 UtcDateTime actual = sut.Subtract(timeSpan);
-                Assert.Equal(expected, actual.Field<DateTime>());
+                Assert.Equal(expected.Ticks, actual.Ticks);
             }
 
             [Fact]
             public void SubtractsUtcDateTimeAndReturnsTimeSpan() {
                 DateTime other = fuzzy.DateTime(DateTimeKind.Utc);
-                TimeSpan expected = sut.Field<DateTime>().Value - other;
+                TimeSpan expected = inputDateTime - other;
                 TimeSpan actual = sut.Subtract(new UtcDateTime(other));
                 Assert.Equal(expected, actual);
             }
@@ -372,15 +370,15 @@ namespace Chronology
             [Fact]
             public void SubtractsTimeSpanFromUtcDateTime() {
                 TimeSpan timeSpan = fuzzy.TimeSpan().Between(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(20));
-                DateTime expected = sut.Field<DateTime>().Value - timeSpan;
+                DateTime expected = inputDateTime - timeSpan;
                 UtcDateTime actual = sut - timeSpan;
-                Assert.Equal(expected, actual.Field<DateTime>());
+                Assert.Equal(expected.Ticks, actual.Ticks);
             }
 
             [Fact]
             public void SubtractsUtcDateTimeAndReturnsTimeSpan() {
                 DateTime other = fuzzy.DateTime(DateTimeKind.Utc);
-                TimeSpan expected = sut.Field<DateTime>().Value - other;
+                TimeSpan expected = inputDateTime - other;
                 TimeSpan actual = sut - new UtcDateTime(other);
                 Assert.Equal(expected, actual);
             }
@@ -390,8 +388,9 @@ namespace Chronology
         {
             [Fact]
             public void ConvertsInitializedValue() {
-                DateTime expected = sut.Field<DateTime>();
-                Assert.Equal(expected, sut.ToDateTime());
+                DateTime actual = sut.ToDateTime();
+                Assert.Equal(inputDateTime.Ticks, actual.Ticks);
+                Assert.Equal(DateTimeKind.Utc, actual.Kind);
             }
 
             [Fact]
@@ -406,8 +405,9 @@ namespace Chronology
         {
             [Fact]
             public void ConvertsInitializedValue() {
-                var expected = new DateTimeOffset(sut.Field<DateTime>());
-                Assert.Equal(expected, sut.ToDateTimeOffset());
+                DateTimeOffset actual = sut.ToDateTimeOffset();
+                Assert.Equal(inputDateTime.Ticks, actual.Ticks);
+                Assert.Equal(TimeSpan.Zero, actual.Offset);
             }
 
             [Fact]
@@ -422,7 +422,7 @@ namespace Chronology
         {
             [Fact]
             public void ReturnsValueInRoundTripFormat() {
-                string expected = sut.Field<DateTime>().Value.ToString("o");
+                string expected = inputDateTime.ToString("o");
                 string? actual = sut.ToString();
                 Assert.Equal(expected, actual);
             }
