@@ -180,6 +180,20 @@ namespace Chronology
                 UtcDateTime actual = sut.Add(timeSpan);
                 Assert.Equal(expected.Ticks, actual.Ticks);
             }
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeLessThanMinimum() {
+                var timeSpan = -new TimeSpan(inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut.Add(timeSpan));
+                Assert.Equal("timeSpan", thrown.ParamName);
+            }
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeGreaterThanMaximum() {
+                var timeSpan = new TimeSpan(DateTime.MaxValue.Ticks - inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut.Add(timeSpan));
+                Assert.Equal("timeSpan", thrown.ParamName);
+            }
         }
 
         public class AdditionOperator: UtcDateTimeTest
@@ -190,6 +204,20 @@ namespace Chronology
                 DateTime expected = inputDateTime + timeSpan;
                 UtcDateTime actual = sut + timeSpan;
                 Assert.Equal(expected.Ticks, actual.Ticks);
+            }
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeLessThanMinimum() {
+                var timeSpan = -new TimeSpan(inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut + timeSpan);
+                Assert.Equal("timeSpan", thrown.ParamName);
+            }
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeGreaterThanMaximum() {
+                var timeSpan = new TimeSpan(DateTime.MaxValue.Ticks - inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut + timeSpan);
+                Assert.Equal("timeSpan", thrown.ParamName);
             }
         }
 
@@ -354,7 +382,7 @@ namespace Chronology
             }
         }
 
-        public class Subtract: UtcDateTimeTest
+        public class SubtractTimeSpan: UtcDateTimeTest
         {
             [Fact]
             public void SubtractsTimeSpanFromUtcDateTime() {
@@ -365,6 +393,23 @@ namespace Chronology
             }
 
             [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeLessThanMinimum() {
+                var timeSpan = new TimeSpan(inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut.Subtract(timeSpan));
+                Assert.Equal("timeSpan", thrown.ParamName);
+            }
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeGreaterThanMaximum() {
+                var timeSpan = -new TimeSpan(DateTime.MaxValue.Ticks - inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut.Subtract(timeSpan));
+                Assert.Equal("timeSpan", thrown.ParamName);
+            }
+        }
+
+        public class SubtractUtcDateTime: UtcDateTimeTest
+        {
+            [Fact]
             public void SubtractsUtcDateTimeAndReturnsTimeSpan() {
                 DateTime other = fuzzy.DateTime(DateTimeKind.Utc);
                 TimeSpan expected = inputDateTime - other;
@@ -373,7 +418,7 @@ namespace Chronology
             }
         }
 
-        public class SubtractionOperator: UtcDateTimeTest
+        public class SubtractTimeSpanOperator: UtcDateTimeTest
         {
             [Fact]
             public void SubtractsTimeSpanFromUtcDateTime() {
@@ -383,6 +428,23 @@ namespace Chronology
                 Assert.Equal(expected.Ticks, actual.Ticks);
             }
 
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeLessThanMinimum() {
+                var timeSpan = new TimeSpan(inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut - timeSpan);
+                Assert.Equal("timeSpan", thrown.ParamName);
+            }
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenResultWouldBeGreaterThanMaximum() {
+                var timeSpan = -new TimeSpan(DateTime.MaxValue.Ticks - inputDateTime.Ticks + 1);
+                var thrown = Assert.Throws<ArgumentOutOfRangeException>(() => sut - timeSpan);
+                Assert.Equal("timeSpan", thrown.ParamName);
+            }
+        }
+
+        public class SubtractUtcDateTimeOperator: UtcDateTimeTest
+        {
             [Fact]
             public void SubtractsUtcDateTimeAndReturnsTimeSpan() {
                 DateTime other = fuzzy.DateTime(DateTimeKind.Utc);
