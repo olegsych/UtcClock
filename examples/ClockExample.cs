@@ -9,9 +9,9 @@ namespace Chronology
     {
         public class YourClass
         {
-            readonly IClock clock;
+            readonly IClock<UtcDateTime> clock;
 
-            public YourClass(IClock clock) => this.clock = clock;
+            public YourClass(IClock<UtcDateTime> clock) => this.clock = clock;
 
             public override string ToString() {
                 UtcDateTime now = clock.Time;
@@ -30,7 +30,7 @@ namespace Chronology
 
         [Fact]
         public void YourTest() {
-            IClock clock = Substitute.For<IClock>();
+            IClock<UtcDateTime> clock = Substitute.For<IClock<UtcDateTime>>();
             var time = new DateTime(2021, 9, 4, 12, 00, 00, DateTimeKind.Utc);
             ConfiguredCall? arrange = clock.Time.Returns(new UtcDateTime(time));
 
@@ -43,7 +43,7 @@ namespace Chronology
 
         [Fact]
         public void ImplicitConversions() {
-            IClock clock = new Clock();
+            IClock<UtcDateTime> clock = new Clock();
             UtcDateTime utcDateTime = clock.Time;
             DateTime dateTime = utcDateTime;
             DateTimeOffset dateTimeOffset = utcDateTime;

@@ -2,8 +2,8 @@ using System;
 
 namespace Chronology
 {
-    public sealed class Clock: IClock
+    public sealed class Clock: IClock<UtcDateTime>
     {
-        UtcDateTime IClock.Time => new UtcDateTime(DateTime.UtcNow);
+        UtcDateTime IClock<UtcDateTime>.Time => new UtcDateTime(DateTime.UtcNow);
     }
 }

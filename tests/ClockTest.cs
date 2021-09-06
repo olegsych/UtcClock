@@ -5,7 +5,7 @@ namespace Chronology
 {
     public class ClockTest: TestFixture
     {
-        readonly IClock sut = new Clock();
+        readonly IClock<UtcDateTime> sut = new Clock();
 
         static readonly TimeSpan clockPrecision = TimeSpan.FromMilliseconds(16);
 
