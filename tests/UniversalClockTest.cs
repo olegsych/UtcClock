@@ -3,13 +3,13 @@ using Xunit;
 
 namespace Chronology
 {
-    public class ClockTest: TestFixture
+    public class UniversalClockTest: TestFixture
     {
-        readonly IClock<UtcDateTime> sut = new Clock();
+        readonly IClock<UtcDateTime> sut = new UniversalClock();
 
         static readonly TimeSpan clockPrecision = TimeSpan.FromMilliseconds(16);
 
-        public class Time: ClockTest
+        public class Time: UniversalClockTest
         {
             [Fact]
             public void ReturnsCurrentUtcDateTime() {
