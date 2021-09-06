@@ -21,6 +21,14 @@ namespace Chronology
                 var sut = new UtcDateTime(input.Ticks);
                 Assert.Equal(input.Ticks, sut.Ticks);
             }
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenInputIsLessThanZero() =>
+                Assert.Throws<ArgumentOutOfRangeException>(() => new UtcDateTime(-1));
+
+            [Fact]
+            public void ThrowsArgumentOutOfRangeExceptionWhenInputIsGreaterThanMax() =>
+                Assert.Throws<ArgumentOutOfRangeException>(() => new UtcDateTime(DateTime.MaxValue.Ticks + 1));
         }
 
         public sealed class DateTimeOffsetConstructor: UtcDateTimeTest

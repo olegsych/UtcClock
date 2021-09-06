@@ -8,7 +8,11 @@ namespace Chronology
         readonly long ticks;
         #pragma warning restore IDE0032
 
-        public UtcDateTime(long ticks) => this.ticks = ticks;
+        public UtcDateTime(long ticks) {
+            if(ticks < 0 || ticks > DateTime.MaxValue.Ticks)
+                throw new ArgumentOutOfRangeException(nameof(ticks));
+            this.ticks = ticks;
+        }
 
         public UtcDateTime(DateTimeOffset value) => ticks = value.UtcDateTime.Ticks;
 
