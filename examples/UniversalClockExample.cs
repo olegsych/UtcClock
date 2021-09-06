@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Chronology
 {
-    public class ClockExample
+    public class UniversalClockExample
     {
         public class YourClass
         {
@@ -22,7 +22,7 @@ namespace Chronology
         public static class YourApplication
         {
             public static void main() {
-                var clock = new Clock();
+                var clock = new UniversalClock();
                 var work = new YourClass(clock);
                 Console.WriteLine(work);
             }
@@ -43,7 +43,7 @@ namespace Chronology
 
         [Fact]
         public void ImplicitConversions() {
-            IClock<UtcDateTime> clock = new Clock();
+            IClock<UtcDateTime> clock = new UniversalClock();
             UtcDateTime utcDateTime = clock.Now;
             DateTime dateTime = utcDateTime;
             DateTimeOffset dateTimeOffset = utcDateTime;
