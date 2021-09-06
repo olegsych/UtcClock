@@ -14,7 +14,7 @@ namespace Chronology
             [Fact]
             public void ReturnsCurrentUtcDateTime() {
                 DateTime expected = DateTime.UtcNow;
-                UtcDateTime actual = sut.Time;
+                UtcDateTime actual = sut.Now;
                 Assert.Equal(expected, actual, clockPrecision);
             }
         }
