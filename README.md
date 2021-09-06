@@ -24,46 +24,47 @@ Inject the `IClock` interface into your class.
 ```C#
 public class YourClass
 {
-    readonly IClock clock;
-    public YourClass(IClock clock) => this.clock = clock;
+    readonly IClock<UtcDateTime> clock;
+    public YourClass(IClock<UtcDateTime> clock) => this.clock = clock;
 }
 ```
 
-`IClock` allows you to obtain the current date and time as `UtcDateTime`
+`IClock<UtcDateTime>` allows you to obtain the current date and time as `UtcDateTime`.
 ```C#
 public override string ToString() {
-    UtcDateTime now = clock.Time;
+    UtcDateTime now = clock.Now;
     return $"Current time is {now}";
 }
 ```
 
-In your application code, instantiate `Clock` and pass it to your class as the
-implementation of the `IClock` interface. If you are using dependency injection,
-register `Clock` as a singleton implementing the `IClock` service.
+In your application code, instantiate `UniversalClock` and pass it to your class
+as the implementation of the `IClock<UtcDateTime>` interface. If you are using
+dependency injection, register `UniversalClock` as a singleton implementation
+of the `IClock<UtcDateTime>` service.
 ```C#
 public static void Main() {
-    var clock = new Clock();
+    var clock = new UniversalClock();
     var work = new YourClass(clock);
     Console.WriteLine(work);
 }
 ```
 
-In your test code, you can provide a stub implementation of `IClock` that returns
-a fixed value and test your code deterministically.
+In your test code, you can provide a stub implementation of `IClock<UtcDateTime>`
+that returns a fixed value and test your code deterministically.
 ```C#
 using NSubstitute;
 using Xunit;
 
 [Fact]
 public void YourTest() {
-    IClock clock = Substitute.For<IClock>();
-    var time = new DateTime(2021, 9, 4, 12, 00, 00, DateTimeKind.Utc);
-    ConfiguredCall? arrange = clock.Time.Returns(new UtcDateTime(time));
+    var clock = Substitute.For<IClock<UtcDateTime>>();
+    var now = new DateTime(2021, 9, 4, 12, 00, 00, DateTimeKind.Utc);
+    ConfiguredCall? arrange = clock.Now.Returns(new UtcDateTime(now));
 
     var sut = new YourClass(clock);
     string actual = sut.ToString();
 
-    string expected = $"Current time is {time:o}";
+    string expected = $"Current time is {now:o}";
     Assert.Equal(expected, actual);
 }
 ```
