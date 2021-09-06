@@ -1,7 +1,7 @@
 namespace Chronology
 {
-    public interface IClock
+    public interface IClock<T>
     {
-        UtcDateTime Time { get; }
+        T Time { get; }
     }
 }
