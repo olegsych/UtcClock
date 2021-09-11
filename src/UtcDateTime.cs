@@ -4,16 +4,13 @@ namespace Chronology
 {
     public struct UtcDateTime: IEquatable<UtcDateTime>, IComparable<UtcDateTime>
     {
-        static readonly long minTicks = DateTime.MinValue.Ticks;
-        static readonly long maxTicks = DateTime.MaxValue.Ticks;
-
         // Don't use auto-property; access field for maximum performance.
         #pragma warning disable IDE0032
         readonly long ticks;
         #pragma warning restore IDE0032
 
         public UtcDateTime(long ticks) {
-            if(ticks < minTicks || ticks > maxTicks)
+            if(ticks < MinValue.Ticks || ticks > MaxValue.Ticks)
                 throw new ArgumentOutOfRangeException(nameof(ticks));
             this.ticks = ticks;
         }
@@ -95,12 +92,12 @@ namespace Chronology
             left.ticks >= right.ticks;
 
         public static UtcDateTime operator +(UtcDateTime utc, TimeSpan timeSpan) =>
-            timeSpan.Ticks < -utc.ticks || timeSpan.Ticks > maxTicks - utc.ticks
+            timeSpan.Ticks < -utc.ticks || timeSpan.Ticks > MaxValue.Ticks - utc.ticks
             ? throw new ArgumentOutOfRangeException(nameof(timeSpan))
             : new UtcDateTime(utc.ticks + timeSpan.Ticks);
 
         public static UtcDateTime operator -(UtcDateTime utc, TimeSpan timeSpan) =>
-            timeSpan.Ticks > utc.ticks || timeSpan.Ticks < utc.ticks - maxTicks
+            timeSpan.Ticks > utc.ticks || timeSpan.Ticks < utc.ticks - MaxValue.Ticks
             ? throw new ArgumentOutOfRangeException(nameof(timeSpan))
             : new UtcDateTime(utc.ticks - timeSpan.Ticks);
 
