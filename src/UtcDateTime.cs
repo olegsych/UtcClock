@@ -27,6 +27,10 @@ namespace Chronology
             ticks = value.ToUniversalTime().Ticks;
         }
 
+        public static readonly UtcDateTime MaxValue = new UtcDateTime(DateTimeOffset.MaxValue.UtcDateTime);
+
+        public static readonly UtcDateTime MinValue = new UtcDateTime(DateTimeOffset.MinValue.UtcDateTime);
+
         public long Ticks => ticks;
 
         public UtcDateTime Add(TimeSpan timeSpan) =>

@@ -348,6 +348,20 @@ namespace Chronology
             }
         }
 
+        public class MaxValue: UtcDateTimeTest
+        {
+            [Fact]
+            public void ReturnsMaxUtcDateTimeValue() =>
+                Assert.Equal(DateTimeOffset.MaxValue.UtcDateTime, UtcDateTime.MaxValue);
+        }
+
+        public class MinValue: UtcDateTimeTest
+        {
+            [Fact]
+            public void ReturnsMinUtcDateTimeOffsetValue() =>
+                Assert.Equal(DateTimeOffset.MinValue.UtcDateTime, UtcDateTime.MinValue);
+        }
+
         public class SubtractTimeSpan: UtcDateTimeTest
         {
             [Fact]
