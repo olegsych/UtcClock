@@ -59,6 +59,32 @@ namespace Chronology
             }
         }
 
+        public sealed class MultiPartConstructor: UtcDateTimeTest
+        {
+            [Fact]
+            public void CreatesValueFromYearMonthDay() {
+                DateTime expected = fuzzy.DateTime(DateTimeKind.Utc).Date;
+                var actual = new UtcDateTime(expected.Year, expected.Month, expected.Day);
+                Assert.Equal(expected.Ticks, actual.Ticks);
+            }
+
+            [Fact]
+            public void CreatesValueFromYearMonthDayHourMinuteSecond() {
+                const long ticksPerSecond = 10000000L;
+                DateTime expected = fuzzy.DateTime(DateTimeKind.Utc);
+                var actual = new UtcDateTime(expected.Year, expected.Month, expected.Day, expected.Hour, expected.Minute, expected.Second);
+                Assert.Equal(expected.Ticks - expected.Ticks % ticksPerSecond, actual.Ticks);
+            }
+
+            [Fact]
+            public void CreatesValueFromYearMonthDayHourMinuteSecondMillisecond() {
+                const long ticksPerMillisecond = 10000L;
+                DateTime expected = fuzzy.DateTime(DateTimeKind.Utc);
+                var actual = new UtcDateTime(expected.Year, expected.Month, expected.Day, expected.Hour, expected.Minute, expected.Second, expected.Millisecond);
+                Assert.Equal(expected.Ticks - expected.Ticks % ticksPerMillisecond, actual.Ticks);
+            }
+        }
+
         public class EqualityOperator: UtcDateTimeTest
         {
             [Fact]
