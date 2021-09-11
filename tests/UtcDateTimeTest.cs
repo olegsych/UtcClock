@@ -59,40 +59,6 @@ namespace Chronology
             }
         }
 
-        public sealed class DateTimeConversionOperator: UtcDateTimeTest
-        {
-            [Fact]
-            public void ConvertsInitializedValue() {
-                DateTime actual = sut;
-                Assert.Equal(sut.Ticks, actual.Ticks);
-                Assert.Equal(DateTimeKind.Utc, actual.Kind);
-            }
-
-            [Fact]
-            public void ConvertsUninitializedValue() {
-                DateTime actual = default(UtcDateTime);
-                Assert.Equal(0, actual.Ticks);
-                Assert.Equal(DateTimeKind.Utc, actual.Kind);
-            }
-        }
-
-        public sealed class DateTimeOffsetComversionOperator: UtcDateTimeTest
-        {
-            [Fact]
-            public void ConvertsInitializedValue() {
-                DateTimeOffset actual = sut;
-                Assert.Equal(sut.Ticks, actual.Ticks);
-                Assert.Equal(TimeSpan.Zero, actual.Offset);
-            }
-
-            [Fact]
-            public void ConvertsUninitializedValue() {
-                DateTimeOffset actual = default(UtcDateTime);
-                Assert.Equal(0, actual.Ticks);
-                Assert.Equal(TimeSpan.Zero, actual.Offset);
-            }
-        }
-
         public class EqualityOperator: UtcDateTimeTest
         {
             [Fact]
@@ -483,6 +449,40 @@ namespace Chronology
             [Fact]
             public void ConvertsUninitializedValue() {
                 DateTimeOffset actual = default(UtcDateTime).ToDateTimeOffset();
+                Assert.Equal(0, actual.Ticks);
+                Assert.Equal(TimeSpan.Zero, actual.Offset);
+            }
+        }
+
+        public sealed class ToDateTimeConversionOperator: UtcDateTimeTest
+        {
+            [Fact]
+            public void ConvertsInitializedValue() {
+                DateTime actual = sut;
+                Assert.Equal(sut.Ticks, actual.Ticks);
+                Assert.Equal(DateTimeKind.Utc, actual.Kind);
+            }
+
+            [Fact]
+            public void ConvertsUninitializedValue() {
+                DateTime actual = default(UtcDateTime);
+                Assert.Equal(0, actual.Ticks);
+                Assert.Equal(DateTimeKind.Utc, actual.Kind);
+            }
+        }
+
+        public sealed class ToDateTimeOffsetComversionOperator: UtcDateTimeTest
+        {
+            [Fact]
+            public void ConvertsInitializedValue() {
+                DateTimeOffset actual = sut;
+                Assert.Equal(sut.Ticks, actual.Ticks);
+                Assert.Equal(TimeSpan.Zero, actual.Offset);
+            }
+
+            [Fact]
+            public void ConvertsUninitializedValue() {
+                DateTimeOffset actual = default(UtcDateTime);
                 Assert.Equal(0, actual.Ticks);
                 Assert.Equal(TimeSpan.Zero, actual.Offset);
             }
