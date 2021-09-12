@@ -23,6 +23,7 @@ test_script:
 - cmd: dotnet test .\tests\Tests.csproj
 
 after_test:
+- cmd: dotnet tool install --tool-path . nbgv
 - cmd: dotnet pack .\src\Chronology.csproj --configuration Release --include-symbols
 
 artifacts:
