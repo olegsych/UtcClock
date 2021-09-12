@@ -1,5 +1,7 @@
 # https://ci.appveyor.com/project/olegsych/chronology/settings/yaml
 
+version: "{build}"
+
 pull_requests:
   do_not_increment_build_number: true
 
