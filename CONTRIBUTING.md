@@ -13,7 +13,7 @@ dotnet build .\Chronology.sln
 # test
 Use Visual Studio or command line.
 ```PowerShell
-dotnet test .\tests\Tests.csproj
+dotnet test .\Chronology.sln
 ```
 
 # pull request
