@@ -15,8 +15,7 @@ image: Visual Studio 2019
 
 clone_script:
 - cmd: set
-- ps: >-
-    git clone --recurse-submodules -c core.symlinks=true https://github.com/olegsych/chronology.git .\
+- cmd: git clone --recurse-submodules -c core.symlinks=true https://github.com/olegsych/chronology.git .\
 
 build_script:
 - cmd: dotnet build .\Chronology.sln -nologo -logger:"C:\Program Files\AppVeyor\BuildAgent\dotnetcore\Appveyor.MSBuildLogger.dll"
