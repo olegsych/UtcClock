@@ -18,10 +18,10 @@ clone_script:
 - cmd: git clone --recurse-submodules -c core.symlinks=true https://github.com/olegsych/chronology.git .\
 - ps: >-
     if($env:APPVEYOR_PULL_REQUEST_NUMBER) {
-        git fetch origin +refs/pull/$env:APPVEYOR_PULL_REQUEST_NUMBER/merge:
-        git checkout --recurse-submodules -f FETCH_HEAD
+        git fetch -q origin +refs/pull/$env:APPVEYOR_PULL_REQUEST_NUMBER/merge:
+        git checkout --recurse-submodules -qf FETCH_HEAD
     } else {
-      git checkout --recurse-submodules -f $env:APPVEYOR_REPO_COMMIT
+      git checkout --recurse-submodules -qf $env:APPVEYOR_REPO_COMMIT
     }
 
 build_script:
