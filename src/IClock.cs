@@ -1,6 +1,6 @@
 namespace Chronology
 {
-    public interface IClock<T>
+    public interface IClock<out T>
     {
         T Now { get; }
     }
