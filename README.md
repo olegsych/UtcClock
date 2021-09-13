@@ -38,15 +38,28 @@ public override string ToString() {
 ```
 
 In your application code, instantiate `UniversalClock` and pass it to your class
-as the implementation of the `IClock<UtcDateTime>` interface. If you are using
-dependency injection, register `UniversalClock` as a singleton implementation
-of the `IClock<UtcDateTime>` service.
+as the implementation of the `IClock<UtcDateTime>` interface.
 ```C#
 public static void Main() {
     var clock = new UniversalClock();
     var work = new YourClass(clock);
     Console.WriteLine(work);
 }
+```
+
+If you are using dependency injection, register `UniversalClock` as a singleton
+implementation of the `IClock<UtcDateTime>` service.
+```PowerShell
+dotnet add package Chronology.DependencyInjection
+```
+
+ The `Chronology.DependencyInjection` package provides the `AddChronology()` extension
+ method for registering all supported services.
+```C#
+using Microsoft.Extensions.DependencyInjection;
+
+IServiceCollection services; // from .ConfigureServices()
+services.AddChronology();
 ```
 
 In your test code, you can provide a stub implementation of `IClock<UtcDateTime>`
