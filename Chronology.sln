@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chronology.Tests", "tests\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples", "examples\Examples.csproj", "{EE33818E-CFFE-4957-9BA6-B3ABB70B7222}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chronology.DependencyInjection", "src\Chronology.DependencyInjection\Chronology.DependencyInjection.csproj", "{0F098B0B-27B6-479A-BF0C-E98C759A675A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chronology.DependencyInjection.Tests", "tests\Chronology.DependencyInjection\Chronology.DependencyInjection.Tests.csproj", "{B4BC69F7-0ED7-47A8-A8B4-3FAA3FB50A24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,14 @@ Global
 		{EE33818E-CFFE-4957-9BA6-B3ABB70B7222}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE33818E-CFFE-4957-9BA6-B3ABB70B7222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE33818E-CFFE-4957-9BA6-B3ABB70B7222}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F098B0B-27B6-479A-BF0C-E98C759A675A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F098B0B-27B6-479A-BF0C-E98C759A675A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F098B0B-27B6-479A-BF0C-E98C759A675A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F098B0B-27B6-479A-BF0C-E98C759A675A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4BC69F7-0ED7-47A8-A8B4-3FAA3FB50A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4BC69F7-0ED7-47A8-A8B4-3FAA3FB50A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4BC69F7-0ED7-47A8-A8B4-3FAA3FB50A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4BC69F7-0ED7-47A8-A8B4-3FAA3FB50A24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
