@@ -22,7 +22,6 @@ clone_script:
     } else {
         git checkout --recurse-submodules -qf $env:APPVEYOR_REPO_COMMIT
     }
-- cmd: git log -2
 
 build_script:
 - cmd: dotnet build .\Chronology.sln -nologo -logger:"C:\Program Files\AppVeyor\BuildAgent\dotnetcore\Appveyor.MSBuildLogger.dll"
