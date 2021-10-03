@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{293A46C1-DFD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5D4680A6-8C21-4461-991C-6FB710FB387D}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
+		tests\.editorconfig = tests\.editorconfig
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chronology.Fuzzy", "src\Chronology.Fuzzy\Chronology.Fuzzy.csproj", "{8DF1637C-464F-4FA6-B57C-36A95B7FFC74}"
