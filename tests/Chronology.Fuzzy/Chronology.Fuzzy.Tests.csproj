@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Chronology</RootNamespace>
+    <RootNamespace>Fuzzy</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Inspector" Version="*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
     <PackageReference Include="NSubstitute" Version="4.*" />
     <PackageReference Include="xunit" Version="2.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Chronology.Fuzzy\Chronology.Fuzzy.csproj" />
-    <ProjectReference Include="..\src\Chronology\Chronology.csproj" />
+    <ProjectReference Include="..\..\src\Chronology.Fuzzy\Chronology.Fuzzy.csproj" />
   </ItemGroup>
 </Project>

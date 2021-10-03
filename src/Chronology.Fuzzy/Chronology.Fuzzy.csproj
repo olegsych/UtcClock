@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Fuzzy extensions for Chronology.</Description>
+    <RootNamespace>Fuzzy</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Fuzzy" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chronology\Chronology.csproj" />
+  </ItemGroup>
+</Project>

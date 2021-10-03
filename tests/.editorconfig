@@ -2,3 +2,9 @@
 
 # CA1034: Nested types should not be visible
 dotnet_diagnostic.CA1034.severity = none
+
+# CA1051: Do not declare visible instance fields
+dotnet_diagnostic.CA1051.severity = none
+
+# CA5394: Do not use insecure randomness
+dotnet_diagnostic.CA5394.severity = none
