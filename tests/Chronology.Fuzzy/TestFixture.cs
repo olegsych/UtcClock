@@ -1,8 +1,9 @@
 using System;
+using Fuzzy.Implementation;
 using NSubstitute;
 using NSubstitute.Core;
 
-namespace Fuzzy.Implementation
+namespace Fuzzy
 {
     public abstract class TestFixture
     {
