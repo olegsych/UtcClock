@@ -11,6 +11,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\src\Chronology.Fuzzy\Chronology.Fuzzy.csproj" />
     <ProjectReference Include="..\src\Chronology\Chronology.csproj" />
   </ItemGroup>
 </Project>
