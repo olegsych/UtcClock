@@ -30,6 +30,9 @@ public class YourClass
 ```
 
 `IClock<UtcDateTime>` allows you to obtain the current date and time as `UtcDateTime`.
+`UtcDateTime` is a strongly-typed wrapper of `DateTime` with `DateTimeKind.Utc`.
+It can be implicitly converted to `DateTime` or `DateTimeOffset` and implements
+similar properties, methods and operators.
 ```C#
 public override string ToString() {
     UtcDateTime now = clock.Now;
@@ -71,8 +74,8 @@ using Xunit;
 [Fact]
 public void YourTest() {
     var clock = Substitute.For<IClock<UtcDateTime>>();
-    var now = new DateTime(2021, 9, 4, 12, 00, 00, DateTimeKind.Utc);
-    ConfiguredCall? arrange = clock.Now.Returns(new UtcDateTime(now));
+    var now = new UtcDateTime(2021, 9, 4, 12, 00, 00);
+    ConfiguredCall? arrange = clock.Now.Returns(now);
 
     var sut = new YourClass(clock);
     string actual = sut.ToString();
@@ -82,6 +85,9 @@ public void YourTest() {
 }
 ```
 
-`UtcDateTime` is a strongly-typed wrapper of `DateTime` with `DateTimeKind.Utc`.
-It can be implicitly converted to `DateTime` or `DateTimeOffset` and implements
-similar properties, methods and operators.
+The `LocalClock` implements `IClock<DateTimeOffset>` and wraps `DateTimeOffset.Now`
+for scenarios that require date/time values with time zone.
+
+The `HighResolutionClock` implements `IClock<TimeStamp>` and wraps `Stopwatch.Elapsed`
+for monitoring scenarios, where precise measurement of short durations or ordering
+of telemetry items collected on a single multi-core machine is important.
