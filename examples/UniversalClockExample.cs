@@ -31,8 +31,8 @@ namespace Chronology
         [Fact]
         public void YourTest() {
             IClock<UtcDateTime> clock = Substitute.For<IClock<UtcDateTime>>();
-            var time = new DateTime(2021, 9, 4, 12, 00, 00, DateTimeKind.Utc);
-            ConfiguredCall? arrange = clock.Now.Returns(new UtcDateTime(time));
+            var time = new UtcDateTime(2021, 9, 4, 12, 00, 00);
+            ConfiguredCall? arrange = clock.Now.Returns(time);
 
             var sut = new YourClass(clock);
             string actual = sut.ToString();
