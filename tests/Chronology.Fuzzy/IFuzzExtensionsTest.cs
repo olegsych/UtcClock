@@ -8,6 +8,21 @@ namespace Fuzzy
 {
     public abstract class IFuzzExtensionsTest: TestFixture
     {
+        public class HighResolutionTimestamp: IFuzzExtensionsTest
+        {
+            [Fact]
+            public void ReturnsValueBuiltByFuzzyHighResolutionTimestamp() {
+                FuzzyHighResolutionTimestamp? actualSpec = null;
+                var expectedValue = new Chronology.HighResolutionTimestamp(random.Next());
+                ConfiguredCall arrange = fuzzy.Build(Arg.Do<FuzzyHighResolutionTimestamp>(spec => actualSpec = spec)).Returns(expectedValue);
+
+                Chronology.HighResolutionTimestamp actualValue = fuzzy.HighResolutionTimestamp();
+
+                Assert.Equal(expectedValue, actualValue);
+                Assert.Same(fuzzy, actualSpec!.Field<IFuzz>().Value);
+            }
+        }
+
         public class UtcDateTime: IFuzzExtensionsTest
         {
             [Fact]

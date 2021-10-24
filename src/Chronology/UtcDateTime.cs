@@ -2,7 +2,7 @@
 
 namespace Chronology
 {
-    public struct UtcDateTime: IEquatable<UtcDateTime>, IComparable<UtcDateTime>
+    public readonly struct UtcDateTime: IEquatable<UtcDateTime>, IComparable<UtcDateTime>
     {
         // Don't use auto-property; access field for maximum performance.
         #pragma warning disable IDE0032

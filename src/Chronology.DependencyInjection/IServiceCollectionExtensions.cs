@@ -8,6 +8,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddChronology(this IServiceCollection services) => services
             .AddSingleton<IClock<UtcDateTime>, UniversalClock>()
             .AddSingleton<IClock<DateTimeOffset>, LocalClock>()
-            .AddSingleton<IClock<TimeSpan>, HighResolutionClock>();
+            .AddSingleton<IClock<HighResolutionTimestamp>, HighResolutionClock>();
     }
 }

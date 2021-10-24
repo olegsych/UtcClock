@@ -10,14 +10,15 @@ namespace Chronology
     {
         public class YourClass
         {
-            readonly IClock<TimeSpan> clock;
+            readonly IClock<HighResolutionTimestamp> clock;
 
-            public YourClass(IClock<TimeSpan> clock) => this.clock = clock;
+            public YourClass(IClock<HighResolutionTimestamp> clock) =>
+                this.clock = clock;
 
             public override string ToString() {
-                TimeSpan start = clock.Now;
+                HighResolutionTimestamp start = clock.Now;
                 Thread.Sleep(42);
-                TimeSpan stop = clock.Now;
+                HighResolutionTimestamp stop = clock.Now;
                 TimeSpan elapsed = stop - start;
                 return $"Elapsed time is {elapsed}";
             }
@@ -34,9 +35,9 @@ namespace Chronology
 
         [Fact]
         public void YourTest() {
-            IClock<TimeSpan> clock = Substitute.For<IClock<TimeSpan>>();
-            var start = new TimeSpan(1);
-            var stop = new TimeSpan(5);
+            IClock<HighResolutionTimestamp> clock = Substitute.For<IClock<HighResolutionTimestamp>>();
+            var start = new HighResolutionTimestamp(1);
+            var stop = new HighResolutionTimestamp(5);
             ConfiguredCall? arrange = clock.Now.Returns(start, stop);
 
             var sut = new YourClass(clock);
