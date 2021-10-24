@@ -21,7 +21,7 @@ namespace Chronology
                 HighResolutionTimestamp actual = sut.Now;
 
                 Assert.True(stopwatch.IsRunning);
-                Assert.True(actual.Field<long>().Value - expected.Ticks < tolerance.Ticks);
+                Assert.True(actual.Ticks - expected.Ticks < tolerance.Ticks);
             }
         }
     }

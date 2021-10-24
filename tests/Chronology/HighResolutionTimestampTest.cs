@@ -1,6 +1,5 @@
 using System;
 using Fuzzy;
-using Inspector;
 using Xunit;
 
 namespace Chronology
@@ -18,7 +17,7 @@ namespace Chronology
         {
             [Fact]
             public void StoreslongTicks() =>
-                Assert.Equal(ticks, sut.Field<long>().Value);
+                Assert.Equal(ticks, sut.Ticks);
         }
 
         public class CompareTo: HighResolutionTimestampTest
@@ -237,5 +236,11 @@ namespace Chronology
             }
         }
 
+        public new class ToString: HighResolutionTimestampTest
+        {
+            [Fact]
+            public void ReturnsTicksToString() =>
+                Assert.Equal(ticks.ToString(), sut.ToString());
+        }
     }
 }
