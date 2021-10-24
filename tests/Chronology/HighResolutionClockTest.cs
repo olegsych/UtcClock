@@ -7,7 +7,7 @@ namespace Chronology
 {
     public abstract class HighResolutionClockTest
     {
-        readonly IClock<TimeSpan> sut = new HighResolutionClock();
+        readonly IClock<HighResolutionTimestamp> sut = new HighResolutionClock();
 
         static readonly TimeSpan tolerance = TimeSpan.FromMilliseconds(0.5);
 
@@ -18,10 +18,10 @@ namespace Chronology
                 Stopwatch stopwatch = typeof(HighResolutionClock).Field<Stopwatch>()!;
 
                 TimeSpan expected = stopwatch.Elapsed;
-                TimeSpan actual = sut.Now;
+                HighResolutionTimestamp actual = sut.Now;
 
                 Assert.True(stopwatch.IsRunning);
-                Assert.True(actual - expected < tolerance);
+                Assert.True(actual.Field<long>().Value - expected.Ticks < tolerance.Ticks);
             }
         }
     }

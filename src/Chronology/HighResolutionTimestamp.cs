@@ -6,8 +6,8 @@ namespace Chronology
     {
         readonly long ticks;
 
-        public HighResolutionTimestamp(TimeSpan value) =>
-            ticks = value.Ticks;
+        public HighResolutionTimestamp(long ticks) =>
+            this.ticks = ticks;
 
         public int CompareTo(HighResolutionTimestamp other) =>
             ticks < other.ticks ? -1 :

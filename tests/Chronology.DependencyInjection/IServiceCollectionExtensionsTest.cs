@@ -24,7 +24,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
             [Fact]
             public void RegistersHighResolutionClockSingleton() =>
-                VerifyAddedSingleton<IClock<TimeSpan>, HighResolutionClock>(services);
+                VerifyAddedSingleton<IClock<HighResolutionTimestamp>, HighResolutionClock>(services);
 
             static void VerifyAddedSingleton<TService, TImplementation>(IServiceCollection services) {
                 ServiceDescriptor descriptor = services.Single(_ => _.ServiceType == typeof(TService));

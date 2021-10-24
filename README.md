@@ -88,6 +88,7 @@ public void YourTest() {
 The `LocalClock` implements `IClock<DateTimeOffset>` and wraps `DateTimeOffset.Now`
 for scenarios that require date/time values with time zone.
 
-The `HighResolutionClock` implements `IClock<TimeStamp>` and wraps `Stopwatch.Elapsed`
-for monitoring scenarios, where precise measurement of short durations or ordering
-of telemetry items collected on a single multi-core machine is important.
+The `HighResolutionClock` implements `IClock<HighResolutionTimestamp>` and wraps
+`Stopwatch.Elapsed` for monitoring scenarios, where precise measurement of short
+durations or ordering of telemetry items collected on a single multi-core machine
+is important.
