@@ -9,6 +9,12 @@ namespace Chronology
         readonly long ticks;
         #pragma warning restore IDE0032
 
+        public static readonly HighResolutionTimestamp MaxValue =
+            new HighResolutionTimestamp(long.MaxValue);
+
+        public static readonly HighResolutionTimestamp MinValue =
+            new HighResolutionTimestamp(long.MinValue);
+
         public HighResolutionTimestamp(long ticks) =>
             this.ticks = ticks;
 

@@ -214,6 +214,20 @@ namespace Chronology
             }
         }
 
+        public class MaxValue: HighResolutionTimestampTest
+        {
+            [Fact]
+            public void ReturnsMaxTimeSpanValue() =>
+                Assert.Equal(new HighResolutionTimestamp(TimeSpan.MaxValue.Ticks), HighResolutionTimestamp.MaxValue);
+        }
+
+        public class MinValue: HighResolutionTimestampTest
+        {
+            [Fact]
+            public void ReturnsMinTimeSpanValue() =>
+                Assert.Equal(new HighResolutionTimestamp(TimeSpan.MinValue.Ticks), HighResolutionTimestamp.MinValue);
+        }
+
         public class Subtract: HighResolutionTimestampTest
         {
             [Fact]
