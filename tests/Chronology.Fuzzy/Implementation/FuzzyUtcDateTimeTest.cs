@@ -30,22 +30,7 @@ namespace Fuzzy.Implementation
             public Build() => ArrangeBuildOfFuzzyInt64();
 
             [Fact]
-            public void ReturnsDateTimeCreatedFromFuzzyLongAndDateTimeKindValues() {
-                sut.Minimum = new UtcDateTime(random.Next());
-                sut.Maximum = new UtcDateTime(sut.Minimum.Ticks + random.Next());
-                long expectedTicks = random.Next();
-                Expression<Predicate<FuzzyRange<long>>> fuzzyTicks = v => v.Minimum == sut.Minimum.Ticks && v.Maximum == sut.Maximum.Ticks;
-                ConfiguredCall arrange = fuzzy.Build(Arg.Is(fuzzyTicks)).Returns(expectedTicks);
-
-                UtcDateTime actual = InvokeBuild(sut);
-
-                Assert.Equal(expectedTicks, actual.Ticks);
-            }
-
-
-            [Fact]
-            public void ReturnsDateTimeCreatedFromFuzzyLongAndGivenDateTimeKindValues() {
-                var sut = new FuzzyUtcDateTime(fuzzy);
+            public void ReturnsUtcDateTimeCreatedFromFuzzyLongValue() {
                 sut.Minimum = new UtcDateTime(random.Next());
                 sut.Maximum = new UtcDateTime(sut.Minimum.Ticks + random.Next());
                 long expectedTicks = random.Next();
